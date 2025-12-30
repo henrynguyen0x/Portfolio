@@ -17,6 +17,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Portfolio/hieu-landing
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,25 +29,26 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: Portfolio/hieu-landing/package-lock.json
 
-      - name: Install deps
+      - name: Install dependencies
         run: npm ci
 
       - name: Build
         run: npm run build
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: Portfolio/hieu-landing/dist
 
   deploy:
+    runs-on: ubuntu-latest
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
