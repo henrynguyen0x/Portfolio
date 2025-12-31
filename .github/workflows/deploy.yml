@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Portfolio/hieu-landing
+        working-directory: /hieu-landing
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,7 +38,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: Portfolio/hieu-landing/dist
+          path: /hieu-landing/dist
 
   deploy:
     runs-on: ubuntu-latest
