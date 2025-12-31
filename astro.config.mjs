@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   output: "static",
-  site: "https://henrynguyen0x.github.io",
+  site: "https://vhieunguyen.com",
   base: "/Portfolio/hieu-landing",
 
   vite: {
