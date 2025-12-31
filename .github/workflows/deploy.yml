@@ -17,9 +17,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./Portfolio
+    # Remove defaults that add an extra nested path
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,15 +28,17 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
+        working-directory: hieu-landing      # set to the folder that contains package.json
         run: npm ci
 
       - name: Build
+        working-directory: hieu-landing
         run: npm run build
         
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: /hieu-landing/dist
+          path: hieu-landing/dist           # relative path (no leading slash)
 
   deploy:
     runs-on: ubuntu-latest
